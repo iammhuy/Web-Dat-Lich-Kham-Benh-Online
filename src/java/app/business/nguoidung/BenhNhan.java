@@ -1,13 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package app.business.nguoidung;
 
-/**
- *
- * @author Nhat Huy
- */
-public class BenhNhan {
-    
+import javax.persistence.*;
+
+@Entity
+@Table(name = "BenhNhan")
+@PrimaryKeyJoinColumn(name = "userId")
+public class BenhNhan extends User {
+
+    @Lob
+    private String medicalHistory;
+
+    public String getMedicalHistory() { return medicalHistory; }
+    public void setMedicalHistory(String medicalHistory) { this.medicalHistory = medicalHistory; }
 }

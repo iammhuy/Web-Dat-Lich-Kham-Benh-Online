@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence           http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
-  <persistence-unit name="C_K_PU" transaction-type="RESOURCE_LOCAL">
+  <persistence-unit name="Web_Dat_Lich_Kham_BenhPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://mysql-1774ed16-nhathuy24092005-8d8f.c.aivencloud.com:11575/defaultdb"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://mysql-1774ed16-nhathuy24092005-8d8f.c.aivencloud.com:11575/webkhambenh?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="avnadmin"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="AVNS_GgWOk646RNw6Ae9wP_i"/>
@@ -12,4 +12,3 @@
     </properties>
   </persistence-unit>
 </persistence>
-    

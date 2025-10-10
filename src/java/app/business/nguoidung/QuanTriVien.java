@@ -1,13 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package app.business.nguoidung;
 
-/**
- *
- * @author Nhat Huy
- */
-public class QuanTriVien {
-    
+import javax.persistence.*;
+
+@Entity
+@Table(name = "QuanTriVien")
+@PrimaryKeyJoinColumn(name = "userId")
+public class QuanTriVien extends User {
+    // thêm các phương thức/thuộc tính admin nếu cần
+    // ví dụ: quyền nâng cao, ghi nhật ký, ...
 }
