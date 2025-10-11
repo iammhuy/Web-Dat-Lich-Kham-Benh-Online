@@ -65,5 +65,13 @@ public class User implements Serializable {
 
     public String getAddress() { return address; }
     public void setAddress(String address) { this.address = address; }
+
+    public Long getId() {
+    return userId;
+}
+
+    public void setId(Long id) {
+    this.userId = id;
+    }
 }
     
