@@ -1,2 +1,2 @@
-sau khi run, nho sua link thanh Web_Dat_Lich_Kham_Benh/login.jsp
-de test chuc nang cua BacSi, sua link thanh Web_Dat_Lich_Kham_Benh/bacsi-list.jsp
+dat lich
+
