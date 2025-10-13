@@ -1,2 +1,2 @@
-dat lich
+update chuc nang dat lich
 
