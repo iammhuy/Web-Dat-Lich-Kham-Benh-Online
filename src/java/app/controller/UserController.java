@@ -37,7 +37,7 @@ public class UserController extends HttpServlet {
         if (u instanceof app.business.nguoidung.QuanTriVien) {
             response.sendRedirect(request.getContextPath() + "/admin/index.jsp");
         } else if (u instanceof app.business.nguoidung.BacSi) {
-            response.sendRedirect(request.getContextPath() + "/bacsi/index.jsp");
+            response.sendRedirect(request.getContextPath() + "/bacsi/bacsi-form.jsp");
         } else {
             response.sendRedirect(request.getContextPath() + "/benhnhan/dashboard.jsp");
         }
@@ -65,6 +65,9 @@ public class UserController extends HttpServlet {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
+
+
+
 
     private void handleRegister(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {

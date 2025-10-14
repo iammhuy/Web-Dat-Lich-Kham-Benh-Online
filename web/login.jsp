@@ -1,11 +1,37 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="app.business.nguoidung.BenhNhan, app.business.nguoidung.BacSi, app.business.nguoidung.QuanTriVien" %>
+<%
+    // Kiểm tra xem có user đã đăng nhập trong session chưa
+    Object user = session.getAttribute("user");
+
+    if (user != null) {
+        // Nếu là Quản trị viên
+        if (user instanceof app.business.nguoidung.QuanTriVien) {
+            response.sendRedirect(request.getContextPath() + "/admin/index.jsp");
+            return;
+        }
+
+        // Nếu là Bác sĩ
+        if (user instanceof app.business.nguoidung.BacSi) {
+            response.sendRedirect(request.getContextPath() + "/bacsi/index.jsp");
+            return;
+        }
+
+        // Nếu là Bệnh nhân
+        if (user instanceof app.business.nguoidung.BenhNhan) {
+            response.sendRedirect(request.getContextPath() + "/benhnhan/dashboard.jsp");
+            return;
+        }
+    }
+%>
+
 <!DOCTYPE html>
 <html lang="vi" class="h-full bg-gray-50">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập - BUH Clinic</title>
+    <title>Đăng nhập </title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>

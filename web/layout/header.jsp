@@ -49,19 +49,7 @@
                     </a>
                 </li>
 
-                <% if (user == null) { %>
-                    <li class="nav-item ms-lg-2">
-                        <a class="btn btn-light" href="<%=request.getContextPath()%>/login.jsp">
-                            <i class="fa-solid fa-right-to-bracket me-1"></i> Đăng nhập
-                        </a>
-                    </li>
-                <% } else { %>
-                    <li class="nav-item ms-lg-2">
-                        <a class="btn btn-light" href="<%=request.getContextPath()%>/logout.jsp">
-                            <i class="fa-solid fa-right-from-bracket me-1"></i> Đăng xuất
-                        </a>
-                    </li>
-                <% } %>
+                
             </ul>
         </div>
     </div>

@@ -261,7 +261,7 @@
 
         <div class="form-actions">
             <button type="submit">Lưu lại</button>
-            <button type="button" class="btn-cancel" onclick="window.location.href='${pageContext.request.contextPath}/bacsi-list.jsp'">Huỷ</button>
+            <button type="button" class="btn-cancel" onclick="window.location.href='${pageContext.request.contextPath}/admin/bacsi-list.jsp'">Huỷ</button>
 
         </div>
     </form>

@@ -21,7 +21,12 @@
       <property name="javax.persistence.jdbc.password" value="AVNS_GgWOk646RNw6Ae9wP_i"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
       <!-- (Tùy chọn) Thuộc tính này giúp EclipseLink không cố gắng tạo lại bảng -->
-      <property name="eclipselink.ddl-generation" value="none"/>
+<!--      <property name="eclipselink.ddl-generation" value="none"/>-->
+
+        <!-- (Tùy chọn) Thuộc tính này giúp EclipseLink tạo bảng neeys bảng chưa tồn tại -->
+      <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
+      <property name="eclipselink.ddl-generation.output-mode" value="database"/>
+ 
     </properties>
   </persistence-unit>
 </persistence>

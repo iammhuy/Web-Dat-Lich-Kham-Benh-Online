@@ -3,7 +3,44 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/nam3/Web/do_an/Web_Dat_Lich_Kham_Benh/web/index.html</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/web/admin/form.jsp</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/web/benhnhan/lichsu.jsp</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/web/benhnhan/xacnhan.jsp</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/web/benhnhan/dashboard.jsp</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/web/benhnhan/datlich.jsp</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/web/login.jsp</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/src/java/app/controller/Servlet.java</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/src/java/app/controller/ThanhToanServlet.java</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/src/java/app/controller/UserController.java</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/web/admin/index.jsp</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/web/index.jsp</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/web/layout/header.jsp</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/src/java/app/controller/BacSiController.java</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/src/java/app/database/BacSiDAO.java</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/src/java/app/database/QuanTriVienDB.java</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/web/admin/danh_sach_bac_si.jsp</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/src/java/app/business/vatchat/Khoa.java</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/src/java/app/database/KhoaDAO.java</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/web/admin/danh_sach_phong.jsp</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/web/admin/danh_sach_khoa.jsp</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/src/java/app/database/UserDB.java</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/src/java/app/business/nguoidung/BacSi.java</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/src/java/app/database/LichHenDAO.java</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/src/java/app/database/ThanhToanDB.java</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/src/java/app/business/nguoidung/QuanTriVien.java</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/src/java/app/business/vatchat/PhongKham.java</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/src/java/app/controller/AdminController.java</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/src/java/app/business/nguoidung/BenhNhan.java</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/src/conf/persistence.xml</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/src/java/app/database/DBUtil.java</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/src/java/app/business/nguoidung/User.java</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/src/java/app/business/nguoidung/test.java</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/web/admin/bacsi-form.jsp</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/web/assets/styles/main.css</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/web/admin/khoa-form.jsp</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/src/java/app/business/vatchat/Thuoc.java</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/web/admin/phongkham-form.jsp</file>
+            <file>file:/E:/nam3/Web/Web-Dat-Lich-Kham-Benh-Online/Web-Dat-Lich-Kham-Benh-Online/src/java/app/controller/LichHenController.java</file>
         </group>
     </open-files>
 </project-private>
