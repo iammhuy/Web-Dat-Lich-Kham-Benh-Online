@@ -150,8 +150,8 @@
                        class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">Xem tất cả yêu cầu</a>
                     <a href="${pageContext.request.contextPath}/bacsi?action=requests&status=pending"
                        class="px-4 py-2 bg-yellow-50 text-yellow-800 rounded hover:bg-yellow-100">Chờ xử lý</a>
-                </div>
-
+                       
+              
                 <c:choose>
                     <c:when test="${not empty requestList}">
                         <table class="min-w-full bg-white">
@@ -193,9 +193,20 @@
                 </c:choose>
             </div>
         </div>
-    </div>
-</div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-xl font-semibold text-gray-700 mb-4">Hồ Sơ Khám</h3>
 
+                       <a href="${pageContext.request.contextPath}/hosokham?action=create"
+       class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
+        Tạo hồ sơ khám
+    </a>
+                </div>        
+    </div>
+                       
+</div>
+              
+</div>
+                      
 <jsp:include page="/layout/footer.jsp" />
 </body>
 </html>

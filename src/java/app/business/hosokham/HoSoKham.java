@@ -15,6 +15,8 @@ public class HoSoKham {
     @Lob
     private String ketQua;
 
+    private String chuanDoan; // Có nhưng chưa có getter/setter
+
     public HoSoKham() {}
 
     public Integer getHoSoId() { return hoSoId; }
@@ -25,4 +27,8 @@ public class HoSoKham {
 
     public String getKetQua() { return ketQua; }
     public void setKetQua(String ketQua) { this.ketQua = ketQua; }
+
+    // THÊM 2 DÒNG NÀY DƯỚI ĐÂY:
+    public String getChuanDoan() { return chuanDoan; }
+    public void setChuanDoan(String chuanDoan) { this.chuanDoan = chuanDoan; }
 }

@@ -1,26 +1,129 @@
-<%@ page import="java.sql.*, app.database.DBUtil" %> 
-<%@ page contentType="text/html; charset=UTF-8" %>
-<html>
+<%@ page import="java.sql.*, app.database.DBUtil" %>
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+<!DOCTYPE html>
+<html lang="vi">
 <head>
+    <meta charset="UTF-8">
     <title>Chi tiết hồ sơ khám</title>
+    <link rel="stylesheet" href="../assets/styles/main.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #1a73e8;
+            color: white;
+            padding: 14px 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        h2, h3 {
+            text-align: center;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 16px;
+            color: #333;
+            margin: 6px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+        th {
+            background-color: #1a73e8;
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        tr:hover {
+            background-color: #f1f7ff;
+        }
+        .empty {
+            text-align: center;
+            color: #666;
+            margin-top: 15px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            text-decoration: none;
+            color: white;
+            background-color: #1a73e8;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            background-color: #145dc0;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #777;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
+<header>BV Đa Khoa Online</header>
+
+<div class="container">
 <%
-    // --- Lấy ID hồ sơ từ request ---
     String hoSoIdParam = request.getParameter("hoSoId");
     if (hoSoIdParam == null) {
-        out.println("<p>Thiếu tham số hoSoId.</p>");
+        out.println("<p class='empty'>Thiếu tham số <b>hoSoId</b>.</p>");
         return;
     }
 
     int hoSoId = Integer.parseInt(hoSoIdParam);
 
     // --- Kiểm tra đăng nhập ---
-    Long userIdObj = (Long) session.getAttribute("userId");
-    if (userIdObj == null) {
-        out.println("<p>Vui lòng đăng nhập trước khi xem chi tiết hồ sơ.</p>");
+    Object userObj = session.getAttribute("user");
+    if (userObj == null) {
+        out.println("<p class='empty'>Vui lòng đăng nhập trước khi xem chi tiết hồ sơ.</p>");
         return;
     }
+
+    Long userIdObj = null;
+    try {
+        java.lang.reflect.Method m = userObj.getClass().getMethod("getUserId");
+        userIdObj = (Long) m.invoke(userObj);
+    } catch (NoSuchMethodException ex) {
+        try {
+            java.lang.reflect.Method m = userObj.getClass().getMethod("getId");
+            userIdObj = (Long) m.invoke(userObj);
+        } catch (Exception e) {
+            out.println("<p class='empty'>Không thể lấy mã người dùng.</p>");
+            return;
+        }
+    }
+
+    if (userIdObj == null) {
+        out.println("<p class='empty'>Không thể xác định người dùng hiện tại.</p>");
+        return;
+    }
+
     int userId = userIdObj.intValue();
 
     Connection conn = null;
@@ -42,40 +145,44 @@
         rs = ps.executeQuery();
 
         if (rs.next()) {
-            out.println("<h2>Chi tiết hồ sơ khám</h2>");
-            out.println("<p><b>Hồ sơ ID:</b> " + rs.getInt("hoSoId") + "</p>");
-            out.println("<p><b>Lịch hẹn ID:</b> " + rs.getInt("lichHenId") + "</p>");
-            out.println("<p><b>Ngày khám:</b> " + rs.getDate("ngay") + "</p>");
-            out.println("<p><b>Lý do khám:</b> " + rs.getString("LYDOkham") + "</p>");
-            out.println("<p><b>Chi phí:</b> " + rs.getDouble("CHIPHI") + "</p>");
-            out.println("<p><b>Kết quả khám:</b> " + rs.getString("ketQua") + "</p>");
-            out.println("<p><b>Trạng thái:</b> " + rs.getString("TRANGTHAI") + "</p>");
+%>
+            <h2>Chi tiết hồ sơ khám</h2>
+            <p><b>Hồ sơ ID:</b> <%= rs.getInt("hoSoId") %></p>
+            <p><b>Lịch hẹn ID:</b> <%= rs.getInt("lichHenId") %></p>
+            <p><b>Ngày khám:</b> <%= rs.getDate("ngay") %></p>
+            <p><b>Lý do khám:</b> <%= rs.getString("LYDOkham") %></p>
+            <p><b>Chi phí:</b> <%= rs.getDouble("CHIPHI") %> VNĐ</p>
+            <p><b>Kết quả khám:</b> <%= rs.getString("ketQua") != null ? rs.getString("ketQua") : "<i>Chưa có</i>" %></p>
+            <p><b>Trạng thái:</b> <%= rs.getString("TRANGTHAI") %></p>
+<%
         } else {
-            out.println("<p>Không tìm thấy hồ sơ khám tương ứng hoặc bạn không có quyền xem.</p>");
+            out.println("<p class='empty'>Không tìm thấy hồ sơ khám tương ứng hoặc bạn không có quyền xem.</p>");
             return;
         }
+
         rs.close();
         ps.close();
 
         // ======= PHẦN 2: Lấy thông tin đơn thuốc =======
-        ps = conn.prepareStatement(
-            "SELECT DonThuocId, HuongDan FROM DonThuoc WHERE HoSoId = ?"
-        );
+        ps = conn.prepareStatement("SELECT DonThuocId, HuongDan FROM DonThuoc WHERE HoSoId = ?");
         ps.setInt(1, hoSoId);
         rs = ps.executeQuery();
 
         int donThuocId = -1;
         if (rs.next()) {
             donThuocId = rs.getInt("DonThuocId");
-            out.println("<h3>Đơn thuốc</h3>");
-            out.println("<p><b>Hướng dẫn:</b> " + rs.getString("HuongDan") + "</p>");
+%>
+            <h3>Đơn thuốc</h3>
+            <p><b>Hướng dẫn sử dụng:</b> <%= rs.getString("HuongDan") %></p>
+<%
         } else {
-            out.println("<p>Không có đơn thuốc cho hồ sơ này.</p>");
+            out.println("<p class='empty'>Không có đơn thuốc cho hồ sơ này.</p>");
         }
+
         rs.close();
         ps.close();
 
-        // ======= PHẦN 3: Chi tiết thuốc trong đơn =======
+        // ======= PHẦN 3: Chi tiết thuốc =======
         if (donThuocId != -1) {
             ps = conn.prepareStatement(
                 "SELECT t.TenThuoc, t.CongDung, c.SoLuong, c.CachDung " +
@@ -86,9 +193,9 @@
             ps.setInt(1, donThuocId);
             rs = ps.executeQuery();
 
-            out.println("<table border='1' cellpadding='8' cellspacing='0'>");
-            out.println("<tr><th>Tên thuốc</th><th>Công dụng</th><th>Số lượng</th><th>Cách dùng</th></tr>");
             boolean found = false;
+            out.println("<table>");
+            out.println("<tr><th>Tên thuốc</th><th>Công dụng</th><th>Số lượng</th><th>Cách dùng</th></tr>");
             while (rs.next()) {
                 found = true;
                 out.println("<tr>");
@@ -99,14 +206,14 @@
                 out.println("</tr>");
             }
             out.println("</table>");
+
             if (!found) {
-                out.println("<p>Đơn thuốc không có chi tiết thuốc nào.</p>");
+                out.println("<p class='empty'>Đơn thuốc không có chi tiết thuốc nào.</p>");
             }
         }
 
     } catch (Exception e) {
-        out.println("<p style='color:red'>Lỗi: " + e.getMessage() + "</p>");
-        e.printStackTrace(System.out);
+        out.println("<p class='empty' style='color:red'>Lỗi: " + e.getMessage() + "</p>");
     } finally {
         try { if (rs != null) rs.close(); } catch (Exception ex) {}
         try { if (ps != null) ps.close(); } catch (Exception ex) {}
@@ -114,6 +221,11 @@
     }
 %>
 
-<p><a href="xemLichSuKham.jsp">Quay lại lịch sử khám</a></p>
+    <div style="text-align:center;">
+        <a href="xemLichSuKham.jsp" class="back-link">← Quay lại lịch sử khám</a>
+    </div>
+</div>
+
+<footer>© 2025 Bệnh viện Đa Khoa Online | Hotline: 1900 9999</footer>
 </body>
 </html>

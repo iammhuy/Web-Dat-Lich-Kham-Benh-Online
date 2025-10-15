@@ -1,11 +1,105 @@
 <%@ page import="java.sql.*, app.database.DBUtil" %> 
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Lịch sử khám bệnh</title>
+    <link rel="stylesheet" href="../assets/styles/main.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #1a73e8;
+            color: white;
+            padding: 14px 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        h2 {
+            text-align: center;
+            color: #1a1a1a;
+            margin-bottom: 25px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th {
+            background-color: #1a73e8;
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        tr:hover {
+            background-color: #f1f7ff;
+        }
+        a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .empty {
+            text-align: center;
+            color: #666;
+            margin-top: 15px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            text-decoration: none;
+            color: white;
+            background-color: #1a73e8;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            background-color: #145dc0;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #777;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<header>BV Đa Khoa Online</header>
+
+<div class="container">
+    <h2>Lịch sử khám bệnh</h2>
 
 <%
-    // --- Kiểm tra đăng nhập ---
     Object userObj = session.getAttribute("user");
     if (userObj == null) {
-        out.println("<p>Vui lòng đăng nhập trước khi xem lịch sử khám.</p>");
+        out.println("<p class='empty'>Vui lòng đăng nhập trước khi xem lịch sử khám.</p>");
         return;
     }
 
@@ -15,120 +109,73 @@
         userIdObj = (Long) m.invoke(userObj);
     } catch (NoSuchMethodException ex) {
         try {
-            java.lang.reflect.Method m = userObj.getClass().getMethod("getId");
+        java.lang.reflect.Method m = userObj.getClass().getMethod("getId");
             userIdObj = (Long) m.invoke(userObj);
         } catch (Exception e) {
-            out.println("<p style='color:red'>Không thể lấy mã người dùng.</p>");
+            out.println("<p class='empty'>Không thể lấy mã người dùng.</p>");
             return;
         }
     }
 
     if (userIdObj == null) {
-        out.println("<p style='color:red'>Không thể xác định người dùng hiện tại.</p>");
+        out.println("<p class='empty'>Không thể xác định người dùng hiện tại.</p>");
         return;
     }
     int userId = userIdObj.intValue();
-%>
 
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <title>Lịch sử khám bệnh</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
+    Connection conn = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+
+    try {
+        conn = DBUtil.getConnection();
+        ps = conn.prepareStatement(
+            "SELECT h.hoSoId, l.lichHenId, l.ngay, h.ketQua " +
+            "FROM HoSoKham h " +
+            "JOIN LichHen l ON h.lichHenId = l.lichHenId " +
+            "WHERE l.idBenhNhan = ? AND l.TRANGTHAI = 'Đã xác nhận' " +
+            "ORDER BY l.ngay DESC"
+        );
+        ps.setInt(1, userId);
+        rs = ps.executeQuery();
+
+        boolean any = false;
+        out.println("<table>");
+        out.println("<tr><th>Hồ sơ ID</th><th>Lịch hẹn ID</th><th>Ngày khám</th><th>Kết quả</th><th>Hành động</th></tr>");
+        while (rs.next()) {
+            any = true;
+            out.println("<tr>");
+            out.println("<td>" + rs.getInt("hoSoId") + "</td>");
+            out.println("<td>" + rs.getInt("lichHenId") + "</td>");
+            out.println("<td>" + rs.getDate("ngay") + "</td>");
+            out.println("<td>" + (rs.getString("ketQua") != null ? rs.getString("ketQua") : "<i>Chưa có</i>") + "</td>");
+            out.println("<td><a href='xemChiTietHoSo.jsp?hoSoId=" + rs.getInt("hoSoId") + "'>Xem chi tiết</a></td>");
+            out.println("</tr>");
         }
-    </style>
-</head>
-<body class="bg-gray-100 min-h-screen">
-<jsp:include page="/layout/header.jsp" />
+        out.println("</table>");
 
-<div class="container mx-auto px-4 py-8">
-    <div class="bg-white shadow-md rounded-lg p-6">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-6 border-b pb-3">
-            🩺 Lịch sử khám bệnh
-        </h2>
+        if (!any) {
+            out.println("<p class='empty'>Chưa có hồ sơ khám nào được xác nhận.</p>");
+        }
 
-        <%
-            Connection conn = null;
-            PreparedStatement ps = null;
-            ResultSet rs = null;
+        // ✅ Thêm nút quay lại Dashboard
+        out.println("<div style='text-align:center; width:100%;'>");
+        out.println("<a href=\"dashboard.jsp\" class=\"back-link\">← Quay lại trang chính</a>");
+        out.println("</div>");
 
-            try {
-                conn = DBUtil.getConnection();
-                // --- CHỈ LẤY HỒ SƠ KHÁM TỪ CÁC LỊCH ĐÃ XÁC NHẬN ---
-                ps = conn.prepareStatement(
-                    "SELECT h.hoSoId, l.lichHenId, l.ngay, h.ketQua " +
-                    "FROM HoSoKham h " +
-                    "JOIN LichHen l ON h.lichHenId = l.lichHenId " +
-                    "WHERE l.idBenhNhan = ? AND l.TRANGTHAI = 'Đã xác nhận' " +
-                    "ORDER BY l.ngay DESC"
-                );
-                ps.setInt(1, userId);
-                rs = ps.executeQuery();
-
-                boolean any = false;
-        %>
-
-        <table class="min-w-full border border-gray-200 rounded-lg overflow-hidden shadow-sm">
-            <thead class="bg-gray-50">
-                <tr>
-                    <th class="py-3 px-4 text-left text-sm font-semibold text-gray-600">Hồ sơ ID</th>
-                    <th class="py-3 px-4 text-left text-sm font-semibold text-gray-600">Lịch hẹn ID</th>
-                    <th class="py-3 px-4 text-left text-sm font-semibold text-gray-600">Ngày khám</th>
-                    <th class="py-3 px-4 text-left text-sm font-semibold text-gray-600">Kết quả</th>
-                    <th class="py-3 px-4 text-center text-sm font-semibold text-gray-600">Hành động</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200">
-                <%
-                    while (rs.next()) {
-                        any = true;
-                %>
-                <tr class="hover:bg-gray-50 transition">
-                    <td class="py-3 px-4 text-gray-700"><%= rs.getInt("hoSoId") %></td>
-                    <td class="py-3 px-4 text-gray-700"><%= rs.getInt("lichHenId") %></td>
-                    <td class="py-3 px-4 text-gray-700"><%= rs.getDate("ngay") %></td>
-                    <td class="py-3 px-4 text-gray-700">
-                        <%= (rs.getString("ketQua") != null ? rs.getString("ketQua") : "Chưa có") %>
-                    </td>
-                    <td class="py-3 px-4 text-center">
-                        <a href="xemChiTietHoSo.jsp?action=view&hoSoId=<%= rs.getInt("hoSoId") %>"
-                           class="text-blue-600 hover:text-blue-800 font-medium transition">Xem chi tiết</a>
-                    </td>
-                </tr>
-                <%
-                    }
-                %>
-            </tbody>
-        </table>
-
-        <%
-                if (!any) {
-                    out.println("<p class='mt-6 text-gray-600 italic'>Chưa có hồ sơ khám nào với trạng thái 'Đã xác nhận'.</p>");
-                }
-            } catch (Exception e) {
-                out.println("<p class='text-red-600 mt-6'>Lỗi khi tải dữ liệu: " + e.getMessage() + "</p>");
-                e.printStackTrace(System.out);
-            } finally {
-                DBUtil.closeResultSet(rs);
-                DBUtil.closePreparedStatement(ps);
-                DBUtil.closeConnection(conn);
-            }
-        %>
-    </div>
-
-    <div class="mt-8 text-center">
-        <a href="${pageContext.request.contextPath}/benhnhan/dashboard.jsp"
-           class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg shadow transition">
-           Quay lại bảng điều khiển
-        </a>
-    </div>
+    } catch (Exception e) {
+        out.println("<p class='empty' style='color:red'>Lỗi khi tải dữ liệu: " + e.getMessage() + "</p>");
+    } finally {
+        DBUtil.closeResultSet(rs);
+        DBUtil.closePreparedStatement(ps);
+        DBUtil.closeConnection(conn);
+    }
+%>
 </div>
 
-<jsp:include page="/layout/footer.jsp" />
+    <!-- Footer/logo chung -->
+    <footer class="bg-blue-600 text-white text-center py-3 text-sm">
+        © 2025 Bệnh viện Đa Khoa Online | Hotline: 1900 9999
+    </footer>
 </body>
 </html>

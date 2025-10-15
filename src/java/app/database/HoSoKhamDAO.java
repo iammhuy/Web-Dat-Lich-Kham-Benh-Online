@@ -11,12 +11,12 @@ public class HoSoKhamDAO {
         try {
             em.getTransaction().begin();
             em.persist(hs);
-            // flush để đồng bộ, đảm bảo JPA lấy được id tự sinh
-            em.flush();
-            em.refresh(hs); // cập nhật lại đối tượng có ID mới nhất
+            em.flush();      // đảm bảo ID được tạo
+            em.refresh(hs);  // cập nhật lại đối tượng có ID
             em.getTransaction().commit();
             return hs;
         } catch (Exception ex) {
+
             if (em.getTransaction().isActive()) em.getTransaction().rollback();
             ex.printStackTrace();
             return null;
@@ -34,7 +34,6 @@ public class HoSoKhamDAO {
         }
     }
 
-    // Lấy danh sách hồ sơ của bệnh nhân dựa vào idBenhNhan trong LichHen
     public List<HoSoKham> findByBenhNhanId(long idBenhNhan) {
         EntityManager em = DBUtil.getEntityManager();
         try {
